@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 
 // Retrieve data from Flutter POST request
 //$postData = json_decode(file_get_contents('php://input'), true);
-//$text = $postData['text']; // Assuming text is the key sent from Flutter
+//$text = $postData['text']; 
 
 
 
@@ -32,7 +32,7 @@ $sql = "INSERT INTO postagem (textoPostagem, arquivoPostagem1, arquivoPostagem2,
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("sssss", $text, $file1, $file2, $file3, $file4);
 
-$uploadDir = "C:/xampp/htdocs/uploads/"; // Directory to store uploads
+$uploadDir = "C:/xampp/htdocs/uploads/"; //Diretório para guardar os arquivos salvos, mude de acordo com o nome da sua pasta, de preferência a pasta deve esta dentro de htdcos
 
 for ($i = 0; $i < 4; $i++) {
     if ($_FILES["file$i"]["error"] == UPLOAD_ERR_OK) {
@@ -42,14 +42,14 @@ for ($i = 0; $i < 4; $i++) {
 
         if (move_uploaded_file($tempName, $uploadPath)) {
             // File uploaded successfully
-            ${"file" . ($i + 1)} = $uploadPath; // Set file path in corresponding variable
+            ${"file" . ($i + 1)} = $uploadPath; 
         } else {
             // Error uploading file
-            ${"file" . ($i + 1)} = ""; // Set empty string if upload fails
+            ${"file" . ($i + 1)} = ""; 
         }
     } else {
-        // No file uploaded or error occurred
-        ${"file" . ($i + 1)} = ""; // Set empty string if no file or error occurs
+       
+        ${"file" . ($i + 1)} = ""; 
     }
 }
 
@@ -58,7 +58,7 @@ $stmt->execute();
 
 
 if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully";
+    echo "Postagem feita com sucesso";
     
 } 
 else {
